@@ -3,242 +3,398 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>駿河の旅路 | はとばキッチン＆駿河湾クルーズ</title>
+  <title>駿河の旅路 | 静岡満喫プラン - Suruga Heritage Journey</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Shippori+Mincho:wght@500;700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #161413;
-      --card-bg: rgba(28, 25, 23, 0.88);
-      --card-inner: #24201d;
-      --gold-accent: #d4af37;
-      --gold-light: #e6ca65;
+      --bg-dark: #0a0f16;
+      --card-bg: #121a24;
+      --card-inner: #172230;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --gold: #d4a34b;
+      --gold-light: #f5d78e;
       --orange-tag: #ff5722;
       --cyan-tag: #00bcd4;
-      --text-main: #f3f0ea;
-      --text-sub: #b8b2a7;
-      --border-soft: rgba(212, 175, 55, 0.2);
+      --vermilion: #c93b2b;
+      --ocean-blue: #1b6ca8;
+      --text-white: #ffffff;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Shippori Mincho', 'Noto Serif JP', serif;
       background-color: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.9;
-      background-image: radial-gradient(circle at 50% 10%, rgba(45, 38, 33, 0.6) 0%, transparent 80%);
-      background-attachment: fixed;
+      color: var(--text-white);
+      font-family: 'Noto Sans JP', sans-serif;
+      line-height: 1.85;
+      overflow-x: hidden;
     }
 
-    /* Header Nav */
-    .site-header {
+    /* Language Switcher Logic */
+    body[data-lang="ja"] .lang-en { display: none !important; }
+    body[data-lang="en"] .lang-ja { display: none !important; }
+    body[data-lang="both"] .lang-en {
+      display: block !important;
+      color: #93c5fd;
+      font-size: 0.9em;
+      margin-top: 8px;
+      font-style: italic;
+      border-left: 2px solid var(--gold);
+      padding-left: 10px;
+    }
+
+    /* Top Sticky Navigation */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(10, 15, 22, 0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 163, 75, 0.25);
+      padding: 14px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 48px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(22, 20, 19, 0.95);
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
-    .brand-logo {
-      font-family: 'Montserrat', serif;
-      letter-spacing: 0.25em;
-      font-size: 0.95rem;
-      color: var(--gold-accent);
+
+    .brand-title {
+      font-family: 'Cinzel', 'Noto Serif JP', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 2px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .lang-switch {
-      display: flex;
-      gap: 12px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem;
-    }
-    .lang-item {
-      padding: 4px 14px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-sub);
-    }
-    .lang-item.active { background: #3e3833; color: #fff; }
 
-    /* Hero Section */
+    .lang-controls {
+      display: flex;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 40px;
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      gap: 4px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lang-btn:hover { color: #ffffff; }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--gold), #b88628);
+      color: #000000;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(212, 163, 75, 0.4);
+    }
+
+    /* Hero Banner */
     .hero {
+      position: relative;
       text-align: center;
-      padding: 85px 20px 70px;
+      padding: 85px 20px 65px;
+      background: radial-gradient(circle at 50% 20%, rgba(27, 108, 168, 0.25) 0%, transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(201, 59, 43, 0.2) 0%, transparent 50%),
+                  #0a0f16;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
-    .hero-pill {
+
+    .hero-tag {
       display: inline-block;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      background: rgba(212, 175, 55, 0.08);
-      color: var(--gold-light);
       padding: 6px 20px;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 4.2vw, 3.2rem);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      line-height: 1.4;
-      margin-bottom: 22px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    }
-    .hero-lead {
-      color: var(--text-sub);
-      font-size: 1.02rem;
-      max-width: 750px;
-      margin: 0 auto 48px;
+      font-size: 0.82rem;
+      letter-spacing: 3px;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 50px;
+      background: rgba(212, 163, 75, 0.1);
+      margin-bottom: 20px;
     }
 
-    /* HUD Bar */
-    .hud-nav {
+    .hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.9rem, 4.2vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+
+    .hero-desc {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--text-sub);
       max-width: 820px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
     }
-    .hud-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-soft);
-      border-radius: 12px;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-align: left;
-    }
-    .hud-card.orange { border-left: 4px solid var(--orange-tag); }
-    .hud-card.cyan { border-left: 4px solid var(--cyan-tag); }
-    .hud-num {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .hud-card.orange .hud-num { color: var(--orange-tag); }
-    .hud-card.cyan .hud-num { color: var(--cyan-tag); }
-    .hud-title { font-weight: 700; font-size: 1.05rem; }
-    .hud-time { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: var(--gold-accent); }
 
-    /* Main Container */
+    /* Container */
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 80px 24px 100px;
+      padding: 40px 20px 80px;
     }
 
-    /* Spot Block */
-    .spot-block { margin-bottom: 120px; }
-    .spot-header-box {
-      border-bottom: 2px solid rgba(212, 175, 55, 0.4);
-      padding-bottom: 14px;
-      margin-bottom: 40px;
+    /* Schedule Timeline (All 4 spots) */
+    .timeline-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .schedule-card {
+      background: linear-gradient(145deg, #131c27, #0d141e);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      position: relative;
+      border-top: 4px solid var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    .schedule-card.c1 { border-top-color: var(--orange-tag); }
+    .schedule-card.c2 { border-top-color: var(--cyan-tag); }
+    .schedule-card.c3 { border-top-color: var(--ocean-blue); }
+    .schedule-card.c4 { border-top-color: var(--vermilion); }
+
+    .schedule-card:hover { transform: translateY(-4px); }
+
+    .schedule-card-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 14px;
+      align-items: center;
     }
-    .spot-title-h2 {
-      font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+
+    .schedule-num {
+      font-size: 1.4rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .schedule-time {
+      font-size: 0.8rem;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .schedule-title {
+      font-size: 0.95rem;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: 0.05em;
+      line-height: 1.35;
     }
-    .spot-subtext {
-      color: var(--gold-accent);
-      font-size: 0.92rem;
+
+    /* Destination Block */
+    .destination-section {
+      margin-bottom: 90px;
+    }
+
+    .destination-header {
+      padding: 22px 28px;
+      border-radius: 18px 18px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .dest-hatoba-header {
+      background: linear-gradient(135deg, #442010 0%, #170d08 100%);
+      border-top: 3px solid var(--orange-tag);
+    }
+    .dest-cruise-header {
+      background: linear-gradient(135deg, #093b44 0%, #06171b 100%);
+      border-top: 3px solid var(--cyan-tag);
+    }
+    .dest-miho-header {
+      background: linear-gradient(135deg, #123354 0%, #0c1a29 100%);
+      border-top: 3px solid #38bdf8;
+    }
+    .dest-kuno-header {
+      background: linear-gradient(135deg, #571610 0%, #1a0806 100%);
+      border-top: 3px solid var(--vermilion);
+    }
+
+    .dest-title-wrap h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.8rem;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+    }
+
+    .dest-title-wrap p {
+      font-size: 0.88rem;
+      color: #94a3b8;
       margin-top: 4px;
     }
-    .stay-time {
-      font-family: 'Montserrat', sans-serif;
+
+    .time-badge {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 18px;
+      border-radius: 30px;
+      color: var(--gold-light);
       font-size: 0.9rem;
-      color: var(--text-sub);
+      font-weight: 600;
     }
 
-    /* Zig-Zag Rows */
-    .content-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: center;
+    /* Cards Stack */
+    .cards-stack {
       background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-top: none;
+      border-radius: 0 0 18px 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    /* Story Card */
+    .story-card {
+      background: var(--card-inner);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 30px;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-    .content-row:hover {
-      border-color: var(--border-soft);
-      transform: translateY(-2px);
-    }
-    .content-row.reverse { direction: rtl; }
-    .content-row.reverse > * { direction: ltr; }
-
-    .row-media {
-      width: 100%;
-      height: 280px;
-      border-radius: 10px;
       overflow: hidden;
-      background: #2b2622;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
-    .row-media img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
+
+    .story-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 163, 75, 0.35);
+    }
+
+    .story-card.reverse {
+      grid-template-columns: 1fr 360px;
+    }
+    .story-card.reverse .story-image-wrap {
+      order: 2;
+    }
+
+    .story-image-wrap {
+      height: 100%;
+      min-height: 250px;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .story-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
       transition: transform 0.5s ease;
     }
-    .row-media:hover img { transform: scale(1.04); }
 
-    .row-text { padding: 8px 12px; }
-    .row-text h3 {
-      font-size: 1.22rem; font-weight: 700; color: #ffffff;
-      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-    }
-    .row-text h3 span.bar {
-      display: inline-block; width: 4px; height: 1.2em;
-      background: var(--orange-tag); border-radius: 2px;
-    }
-    .row-text.cyan h3 span.bar { background: var(--cyan-tag); }
-    .row-text p {
-      font-size: 0.94rem; color: #cfc8be; text-align: justify; line-height: 1.95;
+    .story-card:hover .story-image-wrap img {
+      transform: scale(1.05);
     }
 
-    /* Recommended Schedule Guide Card (Osusume Box) */
+    .multi-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+      min-height: 250px;
+      gap: 2px;
+      background: #000;
+    }
+    .multi-photo-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-content {
+      padding: 26px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .story-content h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .story-content h3::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.2em;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .story-content p {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      line-height: 1.85;
+      text-align: justify;
+    }
+
+    /* Notice & Timeline Schedule Guide */
+    .notice-card {
+      background: #111923;
+      border-left: 4px solid var(--gold);
+      padding: 18px 22px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: #e2ddd3;
+    }
+
     .schedule-guide-card {
-      background: linear-gradient(145deg, #221d19 0%, #1c1815 100%);
+      background: linear-gradient(145deg, #1c1613 0%, #14100e 100%);
       border: 1px solid rgba(255, 87, 34, 0.35);
       border-radius: 14px;
-      padding: 26px 30px;
-      margin-top: 36px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      padding: 24px;
+      margin-top: 10px;
     }
     .schedule-guide-title {
-      font-size: 1.15rem; font-weight: 700; color: var(--gold-light);
-      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.25); padding-bottom: 10px;
-    }
-    .schedule-guide-desc {
-      font-size: 0.93rem; color: #dfd8cc; margin-bottom: 20px; line-height: 1.85;
+      font-size: 1.1rem; font-weight: 700; color: var(--gold-light);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
     }
     .timeline-steps {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      gap: 12px;
+      margin-top: 16px;
     }
     .step-item {
-      background: rgba(36, 32, 29, 0.9);
+      background: rgba(25, 20, 18, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      padding: 14px;
+      padding: 12px;
       text-align: center;
     }
     .step-item.highlight {
@@ -246,213 +402,486 @@
       background: rgba(255, 87, 34, 0.08);
     }
     .step-time {
-      display: inline-block;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 0.95rem;
-      color: var(--gold-accent);
-      margin-bottom: 6px;
+      color: var(--gold-accent, #d4af37);
+      display: block;
+      margin-bottom: 4px;
     }
-    .step-item.highlight .step-time { color: #ff7043; }
-    .step-action { font-size: 0.82rem; color: #ede7dd; line-height: 1.5; }
-
-    /* Notice Card */
-    .notice-card {
-      background: var(--card-inner);
-      border-left: 4px solid var(--gold-accent);
-      padding: 20px 24px;
-      border-radius: 8px;
-      margin-top: 24px;
-      font-size: 0.92rem;
-      color: #e2ddd3;
-    }
+    .step-action { font-size: 0.82rem; color: #ede7dd; }
 
     footer {
-      text-align: center; padding: 40px 20px;
-      color: #71695f; font-size: 0.85rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      padding: 40px 20px;
+      background: #06090e;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: #64748b;
+      font-size: 0.88rem;
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
+      .timeline-summary { grid-template-columns: 1fr 1fr; }
       .timeline-steps { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      .hud-nav { grid-template-columns: 1fr; }
-      .content-row, .content-row.reverse {
-        grid-template-columns: 1fr; direction: ltr;
-      }
-      .row-media { height: 220px; }
-      .site-header { padding: 16px 20px; }
+      .story-card, .story-card.reverse { grid-template-columns: 1fr; }
+      .story-card.reverse .story-image-wrap { order: 1; }
+      .story-content { order: 2; padding: 20px; }
+      .story-image-wrap, .multi-photo-grid { min-height: 220px; height: 220px; }
+      .timeline-summary { grid-template-columns: 1fr; }
       .timeline-steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-<body>
+<body data-lang="ja">
 
-  <!-- Top Header -->
-  <header class="site-header">
-    <div class="brand-logo">✦ SURUGA HERITAGE</div>
-    <div class="lang-switch">
-      <span class="lang-item active">日本語</span>
-      <span class="lang-item">English</span>
+  <!-- Top Sticky Navigation -->
+  <header class="top-header">
+    <div class="brand-title">
+      <span>✦</span> SURUGA HERITAGE
+    </div>
+    <div class="lang-controls">
+      <button class="lang-btn active" id="btn-ja" onclick="setLang('ja')">日本語</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
+      <button class="lang-btn" id="btn-both" onclick="setLang('both')">日英並記</button>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-pill">駿河の旅路・特別厳選プラン</div>
-    <h1>港の美食バイキングと、<br>駿河湾の青き絶景航路へ</h1>
-    <p class="hero-lead">清水港の地産地消の恵み「はとばキッチン」から、富士山と三保の松原を仰ぐ雄大な「駿河湾クルーズ」まで――静岡の海と食を心ゆくまで満喫する2つの名所をご案内します。</p>
+    <span class="hero-tag">
+      <span class="lang-ja">駿河の旅路・特別厳選プラン</span>
+      <span class="lang-en">Curated Travel Plan・Suruga Exploration</span>
+    </span>
 
-    <!-- Navigation HUD -->
-    <div class="hud-nav">
-      <div class="hud-card orange">
-        <div class="hud-num">01</div>
-        <div>
-          <div class="hud-title">はとばキッチン（エスパルスドリームプラザ）</div>
-          <div class="hud-time">⏰ 11:40 ～ 12:40（60分間）</div>
-        </div>
-      </div>
-      <div class="hud-card cyan">
-        <div class="hud-num">02</div>
-        <div>
-          <div class="hud-title">駿河湾クルーズ（富士山パノラマ航路）</div>
-          <div class="hud-time">🚢 13:00 ～ 13:40（40分間）</div>
-        </div>
-      </div>
-    </div>
+    <h1>
+      <span class="lang-ja">港の美食、蒼き航路、そして天下人の聖域へ</span>
+      <span class="lang-en">Gourmet Port, Azure Cruise & The Shogun’s Sanctuary</span>
+    </h1>
+
+    <p class="hero-desc">
+      <span class="lang-ja">清水港の地産バイキングから駿河湾クルーズ、白砂青松の三保松原、そして黄金に輝く久能山東照宮まで――静岡・駿河の海・食・歴史を心ゆくまで満喫する完全プラン。</span>
+      <span class="lang-en">From fresh local buffet at Shimizu Port and scenic cruise to the legendary pine grove of Miho and clifftop golden shrine of Tokugawa Ieyasu — a complete journey across Suruga.</span>
+    </p>
   </section>
 
   <main class="container">
 
-    <!-- SPOT 1: はとばキッチン -->
-    <section class="spot-block" id="hatoba">
-      <div class="spot-header-box">
-        <div>
-          <h2 class="spot-title-h2">はとばキッチン</h2>
-          <div class="spot-subtext">エスパルスドリームプラザ SEA-side 1F ／ 地産地消ランチビュッフェ</div>
+    <!-- Schedule Timeline Box (All 4 Spots) -->
+    <div class="timeline-summary">
+      <div class="schedule-card c1">
+        <div class="schedule-card-top">
+          <span class="schedule-num">01</span>
+          <span class="schedule-time">⏰ 11:40〜12:40</span>
         </div>
-        <div class="stay-time">● 滞在時間 11:40 ～ 12:40</div>
-      </div>
-
-      <!-- Row 1: Entrance & Intro (Normal) -->
-      <div class="content-row">
-        <div class="row-media">
-          <img src="shop picture.webp" alt="はとばキッチン 店頭">
-        </div>
-        <div class="row-text">
-          <h3><span class="bar"></span>清水港を眺めながら楽しむランチビュッフェ</h3>
-          <p>今回の昼食は、エスパルスドリームプラザ SEA-side 1Fにある「はとばキッチン」で、清水港を眺めながらランチビュッフェを楽しみます。お食事時間は11:40から12:40までの60分間です。店内の大きな窓やテラス席からは、清水港の青い海や船が広がり、開放感あふれる空間の中で贅沢なひとときを過ごせます。</p>
+        <div class="schedule-title">
+          <span class="lang-ja">はとばキッチン</span>
+          <span class="lang-en">Hatoba Kitchen</span>
         </div>
       </div>
 
-      <!-- Row 2: Food & Buffet (Reverse) -->
-      <div class="content-row reverse">
-        <div class="row-media">
-          <img src="food picture.webp" alt="地産地消バイキング 静岡おでん">
+      <div class="schedule-card c2">
+        <div class="schedule-card-top">
+          <span class="schedule-num">02</span>
+          <span class="schedule-time">🚢 13:00〜13:40</span>
         </div>
-        <div class="row-text">
-          <h3><span class="bar"></span>静岡おでん・黒はんぺん・50種以上の地産地消</h3>
-          <p>静岡ならではの地産地消の料理を味わうことができます。契約農家から届けられる新鮮な野菜を使ったサラダバーや健康的なおばんざい、特製カレー、茹でたてパスタ、揚げたてのフライなど、和食・洋食を含む50種類以上の豊富なメニューから、好きな料理を自由に選んで楽しめます。</p>
-        </div>
-      </div>
-
-      <!-- Row 3: Dessert for Patissier (Normal) -->
-      <div class="content-row">
-        <div class="row-media">
-          <img src="self made desert.jpg" alt="オリジナルデザートプレート">
-        </div>
-        <div class="row-text">
-          <h3><span class="bar"></span>パティシエを目指す学生注目！オリジナルデザート</h3>
-          <p>パティシエを目指す学生にとって特に注目したいのがデザートバーです。プチケーキ、ゼリー、濃厚プリンに加え、ソフトクリームにシロップやトッピングを自由に組み合わせて自分だけのオリジナルパフェを作ることができます。プロの目線で盛り付けや見せ方を観察できる絶好の機会です。</p>
+        <div class="schedule-title">
+          <span class="lang-ja">駿河湾クルーズ</span>
+          <span class="lang-en">Suruga Bay Cruise</span>
         </div>
       </div>
 
-      <!-- Row 4: Terrace View & Shopping (Reverse) -->
-      <div class="content-row reverse">
-        <div class="row-media">
-          <img src="kichin view.jpg" alt="テラス席からの眺望">
+      <div class="schedule-card c3">
+        <div class="schedule-card-top">
+          <span class="schedule-num">03</span>
+          <span class="schedule-time">🌲 14:10〜14:45</span>
         </div>
-        <div class="row-text">
-          <h3><span class="bar"></span>海風薫るウッドデッキと館内散策・ショッピング</h3>
-          <p>天気が良ければ、テラスやウッドデッキで海風を感じながら記念写真を撮ることもできます。海の景色と料理を一緒に撮影できるため、SNS映えする写真を撮るのにもおすすめです。また、エスパルスドリームプラザ内には静岡のお土産品を販売するお店や「ちびまる子ちゃんランド」もあり、ショッピングも見どころです。</p>
+        <div class="schedule-title">
+          <span class="lang-ja">三保松原</span>
+          <span class="lang-en">Miho no Matsubara</span>
         </div>
       </div>
 
-      <!-- Recommended Osusume Schedule Box -->
-      <div class="schedule-guide-card">
-        <div class="schedule-guide-title">
-          <span>⏱️</span> 60分間の限られた時間を有効活用する「おすすめの過ごし方」
+      <div class="schedule-card c4">
+        <div class="schedule-card-top">
+          <span class="schedule-num">04</span>
+          <span class="schedule-time">⛩️ 15:00〜16:20</span>
         </div>
-        <p class="schedule-guide-desc">
-          昼食時間は60分と限られているため、計画的に行動するのがおすすめです。最初に食べたい料理を選び、12:10頃にはデザートを楽しみ、12:30頃までに食事を終えて身支度や忘れ物を確認しましょう。12:40には店頭前へ集合し、13:00からの駿河湾クルーズへ向かいます。
-        </p>
-        <div class="timeline-steps">
-          <div class="step-item">
-            <span class="step-time">11:40</span>
-            <p class="step-action">入店・料理選び<br><small style="color:#a8a29e;">ビュッフェ料理を確保</small></p>
+        <div class="schedule-title">
+          <span class="lang-ja">久能山東照宮</span>
+          <span class="lang-en">Kunozan Toshogu</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================
+         SPOT 1: はとばキッチン (साथीको भाग १)
+    =============================================== -->
+    <section class="destination-section" id="hatoba">
+      <div class="destination-header dest-hatoba-header">
+        <div class="dest-title-wrap">
+          <h2>
+            <span class="lang-ja">はとばキッチン</span>
+            <span class="lang-en">Hatoba Kitchen (Buffet Dining)</span>
+          </h2>
+          <p>
+            <span class="lang-ja">エスパルスドリームプラザ SEA-side 1F ／ 地産地消ランチビュッフェ</span>
+            <span class="lang-en">S-Pulse Dream Plaza SEA-side 1F / Fresh Local Cuisine Buffet</span>
+          </p>
+        </div>
+        <div class="time-badge">
+          <span>⏰ 滞在時間 11:40 ～ 12:40</span>
+        </div>
+      </div>
+
+      <div class="cards-stack">
+        <!-- Row 1 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="shop picture.webp" alt="はとばキッチン 店頭">
           </div>
-          <div class="step-item highlight">
-            <span class="step-time">12:10 頃★</span>
-            <p class="step-action">デザートタイム<br><small style="color:#ffab91;">スイーツ・パフェ満喫</small></p>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">清水港を眺めながら楽しむランチビュッフェ</span>
+              <span class="lang-en">Harbor-View Buffet Lunch at Shimizu Port</span>
+            </h3>
+            <p>
+              <span class="lang-ja">今回の昼食は、エスパルスドリームプラザ SEA-side 1Fにある「はとばキッチン」で、清水港を眺めながらランチビュッフェを楽しみます。お食事時間は11:40から12:40までの60分間です。店内の大きな窓やテラス席からは、清水港の青い海や船が広がり、開放感あふれる空間の中で贅沢なひとときを過ごせます。</span>
+              <span class="lang-en">Enjoy a seaside lunch buffet at Hatoba Kitchen on the 1st floor of S-Pulse Dream Plaza. For 60 minutes, gaze across the serene harbor waters and ships through panoramic windows and open terrace seats.</span>
+            </p>
           </div>
-          <div class="step-item">
-            <span class="step-time">12:30 頃</span>
-            <p class="step-action">食事終了・身支度<br><small style="color:#a8a29e;">忘れ物の最終確認</small></p>
+        </article>
+
+        <!-- Row 2 -->
+        <article class="story-card reverse">
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">静岡おでん・黒はんぺん・50種以上の地産地消</span>
+              <span class="lang-en">Shizuoka Oden & Over 50 Local Delicacies</span>
+            </h3>
+            <p>
+              <span class="lang-ja">静岡ならではの地産地消の料理を味わうことができます。契約農家から届けられる新鮮な野菜を使ったサラダバーや健康的なおばんざい、特製カレー、茹でたてパスタ、揚げたてのフライなど、和食・洋食を含む50種類以上の豊富なメニューから、好きな料理を自由に選んで楽しめます。</span>
+              <span class="lang-en">Taste locally-sourced specialties including classic Shizuoka oden, black hanpen, freshly picked farm vegetables, homemade curry, and more than 50 varieties of Japanese and Western dishes.</span>
+            </p>
           </div>
-          <div class="step-item highlight" style="border-color: var(--gold-accent);">
-            <span class="step-time">12:40 集合!</span>
-            <p class="step-action">店頭前集合<br><small style="color:var(--gold-light);">クルーズ乗船場へ移動</small></p>
+          <div class="story-image-wrap">
+            <img src="food picture.webp" alt="地産地消バイキング 静岡おでん">
+          </div>
+        </article>
+
+        <!-- Row 3 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="self made desert.jpg" alt="オリジナルデザートプレート">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">パティシエを目指す学生注目！オリジナルデザート</span>
+              <span class="lang-en">Custom Parfait Bar for Aspiring Patissiers</span>
+            </h3>
+            <p>
+              <span class="lang-ja">パティシエを目指す学生にとって特に注目したいのがデザートバーです。プチケーキ、ゼリー、濃厚プリンに加え、ソフトクリームにシロップやトッピングを自由に組み合わせて自分だけのオリジナルパフェを作ることができます。プロの目線で盛り付けや見せ方を観察できる絶好の機会です。</span>
+              <span class="lang-en">Aspiring pastry chefs will love the dessert counter featuring mini-cakes, puddings, soft-serve ice cream, and toppings to create customized dessert parfaits and study food presentation.</span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Row 4 -->
+        <article class="story-card reverse">
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">海風薫るウッドデッキと館内散策・ショッピング</span>
+              <span class="lang-en">Seaside Wood Deck & Souvenir Shopping</span>
+            </h3>
+            <p>
+              <span class="lang-ja">天気が良ければ、テラスやウッドデッキで海風を感じながら記念写真を撮ることもできます。海の景色と料理を一緒に撮影できるため、SNS映えする写真を撮るのにもおすすめです。また、エスパルスドリームプラザ内には静岡のお土産品を販売するお店や「ちびまる子ちゃんランド」もあり、ショッピングも見どころです。</span>
+              <span class="lang-en">Step outside onto the breezy deck for seaside photography. S-Pulse Dream Plaza also hosts regional souvenir gift shops and the beloved Chibi Maruko-chan Land museum.</span>
+            </p>
+          </div>
+          <div class="story-image-wrap">
+            <img src="kichin view.jpg" alt="テラス席からの眺望">
+          </div>
+        </article>
+
+        <!-- Guide Box -->
+        <div class="schedule-guide-card">
+          <div class="schedule-guide-title">
+            <span>⏱️</span>
+            <span class="lang-ja">60分間の限られた時間を有効活用する「おすすめの過ごし方」</span>
+            <span class="lang-en">Recommended 60-Minute Schedule Flow</span>
+          </div>
+          <p style="font-size: 0.92rem; color: #dfd8cc; line-height: 1.8;">
+            <span class="lang-ja">昼食時間は60分と限られているため、計画的に行動するのがおすすめです。最初に食べたい料理を選び、12:10頃にはデザートを楽しみ、12:30頃までに食事を終えて身支度や忘れ物を確認しましょう。12:40には店頭前へ集合し、13:00からの駿河湾クルーズへ向かいます。</span>
+            <span class="lang-en">Plan ahead: choose main dishes first, enjoy dessert around 12:10, wrap up by 12:30, and gather at the entrance at 12:40 to board the 13:00 cruise.</span>
+          </p>
+          <div class="timeline-steps">
+            <div class="step-item">
+              <span class="step-time">11:40</span>
+              <p class="step-action">入店・料理選び<br><small style="color:#a8a29e;">ビュッフェ確保</small></p>
+            </div>
+            <div class="step-item highlight">
+              <span class="step-time">12:10★</span>
+              <p class="step-action">デザートタイム<br><small style="color:#ffab91;">パフェ・スイーツ</small></p>
+            </div>
+            <div class="step-item">
+              <span class="step-time">12:30</span>
+              <p class="step-action">食事終了・準備<br><small style="color:#a8a29e;">忘れ物チェック</small></p>
+            </div>
+            <div class="step-item highlight" style="border-color: var(--gold);">
+              <span class="step-time">12:40</span>
+              <p class="step-action">店頭前集合<br><small style="color:var(--gold-light);">乗船場へ移動</small></p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SPOT 2: 駿河湾クルーズ -->
-    <section class="spot-block" id="cruise">
-      <div class="spot-header-box" style="border-bottom-color: var(--cyan-tag);">
-        <div>
-          <h2 class="spot-title-h2">駿河湾クルーズ</h2>
-          <div class="spot-subtext">日本一深い湾から富士山と三保の松原を望むパノラマ航路</div>
+    <!-- ==============================================
+         SPOT 2: 駿河湾クルーズ (साथीको भाग २)
+    =============================================== -->
+    <section class="destination-section" id="cruise">
+      <div class="destination-header dest-cruise-header">
+        <div class="dest-title-wrap">
+          <h2>
+            <span class="lang-ja">駿河湾クルーズ</span>
+            <span class="lang-en">Suruga Bay Panoramic Cruise</span>
+          </h2>
+          <p>
+            <span class="lang-ja">日本一深い湾から富士山と三保の松原を望むパノラマ航路</span>
+            <span class="lang-en">Panoramic Voyage Across Japan's Deepest Bay</span>
+          </p>
         </div>
-        <div class="stay-time">● 乗船時間 13:00 ～ 13:40</div>
-      </div>
-
-      <!-- Row 1: Fuji Panorama (Normal) -->
-      <div class="content-row">
-        <div class="row-media">
-          <img src="with flag.jpg" alt="富士山と駿河湾クルーズ船">
-        </div>
-        <div class="row-text cyan">
-          <h3><span class="bar"></span>海の上から仰ぐ、富士山と三保の松原の絶景</h3>
-          <p>昼食後は13:00から乗船します。最大水深約2,500mを誇る日本一深い湾の上を船で進む貴重な体験です。陸から見る景色とは違い、青い海、緑の松原、そして背景にそびえる富士山を一度に眺めることができ、まるで浮世絵のように美しい風景が360度パノラマで広がります。</p>
-        </div>
-      </div>
-
-      <!-- Row 2: Seagulls (Reverse) -->
-      <div class="content-row reverse">
-        <div class="row-media">
-          <img src="picture with birt.webp" alt="デッキを舞うカモメたち">
-        </div>
-        <div class="row-text cyan">
-          <h3><span class="bar"></span>デッキを舞うカモメと心地よい海風の臨場感</h3>
-          <p>クルーズ中には船のすぐ近くを飛ぶカモメなどの海鳥を見ることができます。開放的なデッキに出て海鳥を間近に眺めたり、友達と一緒に写真や動画を撮ったりしながら、海の上ならではの爽快感とリフレッシュできる時間を味わうことができます。</p>
+        <div class="time-badge">
+          <span>🚢 乗船時間 13:00 ～ 13:40</span>
         </div>
       </div>
 
-      <!-- Row 3: Route 223 & Logistics (Normal) -->
-      <div class="content-row">
-        <div class="row-media">
-          <img src="view port.jpg" alt="海の上の県道223号標識">
+      <div class="cards-stack">
+        <!-- Row 1 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="with flag.jpg" alt="富士山と駿河湾クルーズ船">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">海の上から仰ぐ、富士山と三保の松原の絶景</span>
+              <span class="lang-en">Unrivaled Views of Mt. Fuji & Miho from the Sea</span>
+            </h3>
+            <p>
+              <span class="lang-ja">昼食後は13:00から乗船します。最大水深約2,500mを誇る日本一深い湾の上を船で進む貴重な体験です。陸から見る景色とは違い、青い海、緑の松原、そして背景にそびえる富士山を一度に眺めることができ、まるで浮世絵のように美しい風景が360度パノラマで広がります。</span>
+              <span class="lang-en">Board at 13:00 across Japan's deepest bay (depth up to 2,500m). From open waters, take in the 360-degree panorama of ocean waves, pine coastline, and majestic snow-capped Mt. Fuji.</span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Row 2 -->
+        <article class="story-card reverse">
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">デッキを舞うカモメと心地よい海風の臨場感</span>
+              <span class="lang-en">Gliding Seagulls & Invigorating Pacific Wind</span>
+            </h3>
+            <p>
+              <span class="lang-ja">クルーズ中には船のすぐ近くを飛ぶカモメなどの海鳥を見ることができます。開放的なデッキに出て海鳥を間近に眺めたり、友達と一緒に写真や動画を撮ったりしながら、海の上ならではの爽快感とリフレッシュできる時間を味わうことができます。</span>
+              <span class="lang-en">Flocks of seagulls glide right past the open observation deck. Capture photos and short videos with friends while breathing in the crisp maritime air.</span>
+            </p>
+          </div>
+          <div class="story-image-wrap">
+            <img src="picture with birt.webp" alt="デッキを舞うカモメたち">
+          </div>
+        </article>
+
+        <!-- Row 3 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="view port.jpg" alt="海の上の県道223号標識">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">県道223号と、IT・コンピュータを学ぶ視点</span>
+              <span class="lang-en">Ocean Route 223 & Harbor Automation Logistics</span>
+            </h3>
+            <p>
+              <span class="lang-ja">清水港には大型のコンテナ船やさまざまな港湾施設があり、普段は陸からしか見ることのできない港の様子を間近に観察できます。IT・コンピュータを学ぶ学生にとっても、港の物流やオートメーション産業の役割を知る大きな刺激となります。静岡の自然・海・港を丸ごと体感できる特別な40分間です。</span>
+              <span class="lang-en">Observe vast cargo vessels and maritime logistics systems in action—a captivating case study of modern automation for IT students traveling together.</span>
+            </p>
+          </div>
+        </article>
+
+        <div class="notice-card">
+          <span class="lang-ja">駿河湾クルーズでは、富士山や三保の松原の絶景だけでなく、清水港の港町としての魅力や駿河湾の雄大さを一度に楽しむことができます。</span>
+          <span class="lang-en">Suruga Bay cruise offers panoramic maritime vistas of Mt. Fuji alongside dynamic views of Shimizu's working historic port.</span>
         </div>
-        <div class="row-text cyan">
-          <h3><span class="bar"></span>県道223号と、IT・コンピュータを学ぶ視点</h3>
-          <p>清水港には大型のコンテナ船やさまざまな港湾施設があり、普段は陸からしか見ることのできない港の様子を間近に観察できます。IT・コンピュータを学ぶ学生にとっても、港の物流やオートメーション産業の役割を知る大きな刺激となります。静岡の自然・海・港を丸ごと体感できる特別な40分間です。</p>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SPOT 3: 三保松原 (तपाईंको भाग १)
+    =============================================== -->
+    <section class="destination-section" id="mihomatsubara">
+      <div class="destination-header dest-miho-header">
+        <div class="dest-title-wrap">
+          <h2>
+            <span class="lang-ja">三保松原</span>
+            <span class="lang-en">Miho no Matsubara</span>
+          </h2>
+          <p>
+            <span class="lang-ja">世界文化遺産「富士山」の構成資産・名勝の浜辺</span>
+            <span class="lang-en">UNESCO World Heritage Site Component & Scenic Coastal Grove</span>
+          </p>
+        </div>
+        <div class="time-badge">
+          <span>🕒 滞在時間 14:10 〜 14:45</span>
         </div>
       </div>
 
-      <div class="notice-card">
-        駿河湾クルーズでは、富士山や三保の松原の絶景だけでなく、清水港の港町としての魅力や駿河湾の雄大さを一度に楽しむことができます。今回の旅行の中でも心に残るハイライトとなるでしょう。
+      <div class="cards-stack">
+        <!-- Card 1 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="三保松原1.jpg" alt="三保松原の黒砂と青い海に浮かぶ富士山">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">黒い砂と青い海に浮かぶ富士山</span>
+              <span class="lang-en">Mt. Fuji Floating Over Black Sand & Blue Sea</span>
+            </h3>
+            <p>
+              <span class="lang-ja">教科書やポスターの中だけの世界ではありません。サラサラとした黒い火山砂の上に立ち、白い波が激しく打ち寄せる海を眺め、松の木の隙間からその先を見てください。そこには、堂々とそびえる富士山があります。その迫力ある景色を目にした瞬間、鳥肌が立つほどの感動に包まれるかもしれません。</span>
+              <span class="lang-en">This is not merely a sight from textbooks or travel brochures. Stand upon the fine black volcanic sand, watch white crests crash upon the blue shore, and peer through evergreen pine branches to behold glorious Mt. Fuji.</span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="story-card reverse">
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">650年生き続ける伝説の御神木に出会う</span>
+              <span class="lang-en">Encounter the 650-Year-Old Sacred Pine of Legend</span>
+            </h3>
+            <p>
+              <span class="lang-ja">650年の時を生きてきた、伝説の「羽衣の松」。巨大な幹は大きくねじれ、枝は四方に広がっています。その前に立つと、天女が本当に空から舞い降りてきたという昔話を信じたくなるほどです。伝説の神秘的な雰囲気を、ぜひ自分の肌で感じてみてください。</span>
+              <span class="lang-en">Standing through 650 years of history, the legendary "Hagoromo no Matsu" twists powerfully across the grove. The ancient folktale of the celestial maiden descending from heaven feels magically alive.</span>
+            </p>
+          </div>
+          <div class="story-image-wrap">
+            <div class="multi-photo-grid">
+              <div style="overflow: hidden; height: 100%;">
+                <img src="3images.jpg" alt="樹齢650年の羽衣の松">
+              </div>
+              <div style="overflow: hidden; height: 100%;">
+                <img src="girl images.jpg" alt="天女伝説の絵画">
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="2.jpg" alt="海風に吹かれる三保松原の松林">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">海風に吹かれて、都会のストレスを忘れる</span>
+              <span class="lang-en">Breathe the Ocean Breeze & Leave All Stress Behind</span>
+            </h3>
+            <p>
+              <span class="lang-ja">深く息を吸い込み、松の香りを楽しんでみてください。心地よい潮風を肌で感じながら、ゆったりと響く波の音に耳を澄ませてみましょう。たった5分浜辺に立っているだけで、頭の中の雑音やストレスが消えていくような感覚を味わえます。</span>
+              <span class="lang-en">Take a deep breath and savor the crisp scent of pine mixed with ocean air. Listening to the rhythmic Pacific waves clears away fatigue and mental stress completely.</span>
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SPOT 4: 久能山東照宮 (तपाईंको भाग २)
+    =============================================== -->
+    <section class="destination-section" id="kuno">
+      <div class="destination-header dest-kuno-header">
+        <div class="dest-title-wrap">
+          <h2>
+            <span class="lang-ja">久能山東照宮</span>
+            <span class="lang-en">Kunozan Toshogu Shrine</span>
+          </h2>
+          <p>
+            <span class="lang-ja">徳川家康公をご祭神とする国宝の社殿・聖域</span>
+            <span class="lang-en">National Treasure Sanctuary Dedicated to Tokugawa Ieyasu</span>
+          </p>
+        </div>
+        <div class="time-badge">
+          <span>🕒 滞在時間 15:00 〜 16:20</span>
+        </div>
+      </div>
+
+      <div class="cards-stack">
+        <!-- Card 1 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="templejpg.jpg" alt="久能山東照宮の黄金に輝く国宝社殿">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">山頂で待っている、息をのむほど美しい黄金の社殿</span>
+              <span class="lang-en">A Dazzling Golden Sanctuary Awaiting at the Summit</span>
+            </h3>
+            <p>
+              <span class="lang-ja">森の中の階段を上っていくと、突然、息をのむような景色が目の前に現れます。深い緑の木々の中に鮮やかな朱色の社殿が映え、本物の金箔が太陽の光を受けて輝いています。400年前の江戸時代から時が止まったかのような美しい社殿に、きっと目を奪われることでしょう。</span>
+              <span class="lang-en">Ascending the forested steps, brilliant vermilion lacquer and gleaming pure gold leaf emerge amidst ancient cedars. Preserved for over four centuries, this National Treasure will leave you spellbound.</span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="story-card reverse">
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">日本を制した男の足跡をたどる</span>
+              <span class="lang-en">Walk the Footsteps of the Man Who Unified Japan</span>
+            </h3>
+            <p>
+              <span class="lang-ja">徳川家康は、人質として過ごすなど苦しい幼少期を乗り越え、最後には日本全土を制しました。ここには、試験に合格したい、大きな壁を乗り越えたい、夢を叶えたいなど、勝負に勝つための力や幸運を願う人々が全国から訪れます。</span>
+              <span class="lang-en">Tokugawa Ieyasu endured tremendous hardships in his youth before uniting Japan and ending centuries of civil warfare. Pilgrims visit here seeking fortitude and blessings for overcoming life challenges.</span>
+            </p>
+          </div>
+          <div class="story-image-wrap">
+            <img src="stairs.webp" alt="久能山の歴史ある1159段の石段">
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="story-card">
+          <div class="story-image-wrap">
+            <img src="s2.jpg" alt="山頂から見渡す青い太平洋と海岸線">
+          </div>
+          <div class="story-content">
+            <h3>
+              <span class="lang-ja">目の前に広がる、果てしない青い太平洋</span>
+              <span class="lang-en">Endless Pacific Ocean Unfolding Before Your Eyes</span>
+            </h3>
+            <p>
+              <span class="lang-ja">社殿から振り返ると、驚くほど美しい景色が目の前に広がります。どこまでも続く青い太平洋と、キラキラと輝く海岸線を見渡すことができます。かつて天下人が眺めたのと同じ景色を、同じ場所から眺める――そんな瞬間は、思わず鳥肌が立つほどです。</span>
+              <span class="lang-en">Turn around from the summit cliffs to witness the sapphire waters of Suruga Bay stretch toward the horizon. Standing where the unifier of Japan once gazed out is a breathtaking experience.</span>
+            </p>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="story-card reverse">
+          <div class="story-content" style="grid-column: 1 / -1;">
+            <h3>
+              <span class="lang-ja">本物の侍の甲冑と日本刀を間近で見る</span>
+              <span class="lang-en">Encounter Authentic Samurai Armor & Katana Up Close</span>
+            </h3>
+            <p>
+              <span class="lang-ja">ゲームや映画の世界ではありません。ガラス越しに、何百年もの時を超えて残ってきた本物の日本刀を見ることができます。美しい刃文を間近で眺め、さらに将軍が身につけた漆黒の甲冑も見ることができます。こうした本物の宝を間近で見ることで、侍の魂を自分自身で感じることができます。</span>
+              <span class="lang-en">Step into the museum treasury to see mastercrafted samurai swords and the lacquered personal armor worn by Tokugawa Ieyasu himself, preserved with pristine historical artistry.</span>
+            </p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -460,8 +889,16 @@
 
   <!-- Footer -->
   <footer>
-    <p>© 2026 中部コンピュータ・パティシエ専門学校 研修旅行プロジェクト (SURUGA HERITAGE)</p>
+    <p>© 2026 中部コンピュータ・パティシエ専門学校 研修旅行プロジェクト ｜ SURUGA HERITAGE</p>
   </footer>
 
+  <!-- Language Switch Script -->
+  <script>
+    function setLang(lang) {
+      document.body.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
+    }
+  </script>
 </body>
 </html>
