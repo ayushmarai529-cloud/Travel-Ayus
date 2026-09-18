@@ -3,7 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>駿河の旅路 | 静岡満喫プラン - Suruga Heritage Journey</title>
+  
+  <!-- Google Search (キーワード検索 / SEO Meta Tags) -->
+  <title>Travel-Ayus | 駿河の旅路 静岡満喫プラン - Suruga Heritage Journey</title>
+  <meta name="description" content="Travel-Ayus: 中部コンピュータ・パティシエ専門学校 研修旅行 駿河の旅路 静岡満喫プラン。清水港はとばキッチン、駿河湾クルーズ、三保松原、久能山東照宮を巡る旅。">
+  <meta name="keywords" content="Travel-Ayus, ayushmarai529, 駿河の旅路, 静岡満喫プラン, 中部コンピュータ・パティシエ専門学校, はとばキッチン, 駿河湾クルーズ, 三保松原, 久能山東照宮">
+  <meta name="author" content="Ayush (Travel-Ayus)">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / SNS Share Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Travel-Ayus | 駿河の旅路 静岡満喫プラン">
+  <meta property="og:description" content="清水港の地産バイキングから駿河湾クルーズ、白砂青松の三保松原、久能山東照宮まで満喫する特別研修旅行プラン。">
+  <meta property="og:url" content="https://ayushmarai529-cloud.github.io/Travel-Ayus/">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -59,6 +72,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
     .brand-title {
@@ -70,6 +85,44 @@
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-box-wrap {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(212, 163, 75, 0.35);
+      border-radius: 30px;
+      padding: 4px 12px;
+      transition: all 0.3s ease;
+    }
+    .search-box-wrap:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 0 10px rgba(212, 163, 75, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .search-box-wrap input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.85rem;
+      width: 140px;
+      transition: width 0.3s ease;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .search-box-wrap input:focus {
+      width: 190px;
+    }
+    .search-box-wrap input::placeholder {
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
 
     .lang-controls {
@@ -241,6 +294,7 @@
       padding: 14px 8px;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.3s ease;
     }
     .sched-card.start {
       border-color: rgba(255, 87, 34, 0.6);
@@ -254,12 +308,12 @@
       border-color: rgba(0, 188, 212, 0.5);
       background: rgba(0, 188, 212, 0.06);
     }
-    /* Updated blue glow style for Miho no Matsubara */
+    /* Blue style for Miho no Matsubara */
     .sched-card.blue {
-      border-color: rgba(243, 163, 44, 0.6);
-      background: rgba(248, 158, 56, 0.08);
+      border-color: rgba(56, 189, 248, 0.6);
+      background: rgba(56, 189, 248, 0.08);
     }
-    /* Updated vermilion red glow style for Kunozan Toshogu */
+    /* Vermilion red style for Kunozan Toshogu */
     .sched-card.vermilion {
       border-color: rgba(239, 68, 68, 0.6);
       background: rgba(239, 68, 68, 0.08);
@@ -576,10 +630,17 @@
     <div class="brand-title">
       <span>✦</span> SURUGA HERITAGE
     </div>
-    <div class="lang-controls">
-      <button class="lang-btn active" id="btn-ja" onclick="setLang('ja')">日本語</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
-      <button class="lang-btn" id="btn-both" onclick="setLang('both')">日英並記</button>
+    <div class="header-actions">
+      <!-- In-Page Keyword Search Box -->
+      <div class="search-box-wrap">
+        <span style="font-size: 0.8rem; margin-right: 6px;">🔍</span>
+        <input type="text" id="siteSearchInput" placeholder="キーワード検索..." onkeyup="filterSiteContent()">
+      </div>
+      <div class="lang-controls">
+        <button class="lang-btn active" id="btn-ja" onclick="setLang('ja')">日本語</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
+        <button class="lang-btn" id="btn-both" onclick="setLang('both')">日英並記</button>
+      </div>
     </div>
   </header>
 
@@ -705,7 +766,6 @@
           <span class="sched-card-time">13:00 - 13:40</span>
           <span class="sched-card-note">富士山パノラマ</span>
         </div>
-        <!-- Updated: sched-card blue -->
         <div class="sched-card blue">
           <span class="sched-card-label">
             <span class="lang-ja">三保の松原</span>
@@ -714,7 +774,6 @@
           <span class="sched-card-time">14:10 - 14:45</span>
           <span class="sched-card-note">散策・見学</span>
         </div>
-        <!-- Updated: sched-card vermilion -->
         <div class="sched-card vermilion">
           <span class="sched-card-label">
             <span class="lang-ja">久能山東照宮</span>
@@ -1147,12 +1206,52 @@
     <p>© 2026 中部コンピュータ・パティシエ専門学校 研修旅行プロジェクト ｜ SURUGA HERITAGE</p>
   </footer>
 
-  <!-- Language Switch Script -->
+  <!-- Scripts -->
   <script>
+    // Language Switch Script
     function setLang(lang) {
       document.body.setAttribute('data-lang', lang);
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById('btn-' + lang).classList.add('active');
+    }
+
+    // In-Page Keyword Search (キーワード検索) Filter Script
+    function filterSiteContent() {
+      const query = document.getElementById('siteSearchInput').value.toLowerCase().trim();
+      
+      const storyCards = document.querySelectorAll('.story-card');
+      const schedCards = document.querySelectorAll('.sched-card');
+      const sections = document.querySelectorAll('.destination-section');
+
+      // Filter story cards
+      storyCards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (query === "" || text.includes(query)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // Filter timeline schedule cards
+      schedCards.forEach(sc => {
+        const text = sc.innerText.toLowerCase();
+        if (query === "" || text.includes(query)) {
+          sc.style.opacity = "1";
+        } else {
+          sc.style.opacity = "0.2";
+        }
+      });
+
+      // Hide section completely if all story cards inside are hidden
+      sections.forEach(sec => {
+        const visibleCards = sec.querySelectorAll('.story-card:not([style*="display: none"])');
+        if (query === "" || visibleCards.length > 0) {
+          sec.style.display = "";
+        } else {
+          sec.style.display = "none";
+        }
+      });
     }
   </script>
 </body>
