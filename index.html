@@ -39,7 +39,7 @@
     body[data-lang="en"] .lang-ja { display: none !important; }
     body[data-lang="both"] .lang-en {
       display: block !important;
-      color: #93c5fd;
+      color: #e6891f;
       font-size: 0.9em;
       margin-top: 8px;
       font-style: italic;
@@ -151,59 +151,156 @@
       padding: 40px 20px 80px;
     }
 
-    /* Schedule Timeline (All 4 spots) */
-    .timeline-summary {
+    /* REAL TOUR OVERVIEW HUD */
+    .tour-package-summary {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 60px;
+      gap: 14px;
+      margin-bottom: 35px;
+      text-align: left;
     }
-
-    .schedule-card {
-      background: linear-gradient(145deg, #131c27, #0d141e);
+    .package-stat-card {
+      background: rgba(23, 34, 48, 0.85);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       position: relative;
-      border-top: 4px solid var(--gold);
-      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .package-stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gold);
+    }
+    .package-stat-card.meet::before { background: var(--orange-tag); }
+    .package-stat-card.dismiss::before { background: #10b981; }
+    .stat-badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .package-stat-card.meet .stat-badge { color: #ffab91; }
+    .package-stat-card.dismiss .stat-badge { color: #6ee7b7; }
+    .stat-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .stat-sub {
+      font-size: 0.82rem;
+      color: var(--gold-light);
+      line-height: 1.5;
     }
 
-    .schedule-card.c1 { border-top-color: var(--orange-tag); }
-    .schedule-card.c2 { border-top-color: var(--cyan-tag); }
-    .schedule-card.c3 { border-top-color: var(--ocean-blue); }
-    .schedule-card.c4 { border-top-color: var(--vermilion); }
-
-    .schedule-card:hover { transform: translateY(-4px); }
-
-    .schedule-card-top {
+    /* Full Tour Schedule Box */
+    .tour-schedule-box {
+      background: linear-gradient(145deg, #131c27, #0d141e);
+      border: 1px solid rgba(212, 163, 75, 0.35);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 55px;
+      text-align: left;
+    }
+    .tour-schedule-header {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      border-bottom: 1px dashed rgba(212, 163, 75, 0.3);
+      padding-bottom: 10px;
+      margin-bottom: 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tour-schedule-header span.tag-date {
+      font-size: 0.85rem;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-sub);
+      font-weight: 400;
+    }
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+    .sched-card {
+      background: var(--card-inner);
+      padding: 14px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .sched-card.start {
+      border-color: rgba(255, 87, 34, 0.6);
+      background: rgba(255, 87, 34, 0.08);
+    }
+    .sched-card.orange {
+      border-color: rgba(255, 87, 34, 0.5);
+      background: rgba(255, 87, 34, 0.06);
+    }
+    .sched-card.cyan {
+      border-color: rgba(0, 188, 212, 0.5);
+      background: rgba(0, 188, 212, 0.06);
+    }
+    /* Updated blue glow style for Miho no Matsubara */
+    .sched-card.blue {
+      border-color: rgba(243, 163, 44, 0.6);
+      background: rgba(248, 158, 56, 0.08);
+    }
+    /* Updated vermilion red glow style for Kunozan Toshogu */
+    .sched-card.vermilion {
+      border-color: rgba(239, 68, 68, 0.6);
+      background: rgba(239, 68, 68, 0.08);
+    }
+    .sched-card.end {
+      border-color: rgba(16, 185, 129, 0.6);
+      background: rgba(16, 185, 129, 0.08);
     }
 
-    .schedule-num {
-      font-size: 1.4rem;
-      font-family: 'Cinzel', serif;
+    .sched-card-label {
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .sched-card.start .sched-card-label { color: #ffab91; }
+    .sched-card.orange .sched-card-label { color: #ffcc80; }
+    .sched-card.cyan .sched-card-label { color: #80deea; }
+    .sched-card.blue .sched-card-label { color: #7dd3fc; }
+    .sched-card.vermilion .sched-card-label { color: #fca5a5; }
+    .sched-card.end .sched-card-label { color: #a7f3d0; }
+
+    .sched-card-time {
+      font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      color: var(--gold);
+      font-size: 0.96rem;
+      color: #fff;
+      display: block;
     }
+    .sched-card.start .sched-card-time { color: var(--orange-tag); }
+    .sched-card.orange .sched-card-time { color: #ffa726; }
+    .sched-card.cyan .sched-card-time { color: var(--cyan-tag); }
+    .sched-card.blue .sched-card-time { color: #38bdf8; }
+    .sched-card.vermilion .sched-card-time { color: #f87171; }
+    .sched-card.end .sched-card-time { color: #10b981; }
 
-    .schedule-time {
-      font-size: 0.8rem;
-      color: var(--gold-light);
-      font-weight: 600;
-    }
-
-    .schedule-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.35;
+    .sched-card-note {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 3px;
     }
 
     /* Destination Block */
@@ -405,11 +502,47 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 0.95rem;
-      color: var(--gold-accent, #d4af37);
+      color: var(--gold-light);
       display: block;
       margin-bottom: 4px;
     }
     .step-action { font-size: 0.82rem; color: #ede7dd; }
+
+    /* Tour Safety Guidelines Box */
+    .tour-guideline-box {
+      background: var(--card-inner);
+      border: 1px solid rgba(212, 163, 75, 0.25);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .guide-col h4 {
+      font-size: 0.98rem;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .guide-col ul {
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+    }
+    .guide-col ul li {
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 14px;
+    }
+    .guide-col ul li::before {
+      content: '・';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
 
     footer {
       text-align: center;
@@ -420,17 +553,19 @@
       font-size: 0.88rem;
     }
 
-    @media (max-width: 900px) {
-      .timeline-summary { grid-template-columns: 1fr 1fr; }
-      .timeline-steps { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 960px) {
+      .tour-package-summary { grid-template-columns: 1fr 1fr; }
+      .schedule-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
+      .tour-package-summary { grid-template-columns: 1fr; }
+      .tour-guideline-box { grid-template-columns: 1fr; }
       .story-card, .story-card.reverse { grid-template-columns: 1fr; }
       .story-card.reverse .story-image-wrap { order: 1; }
       .story-content { order: 2; padding: 20px; }
       .story-image-wrap, .multi-photo-grid { min-height: 220px; height: 220px; }
-      .timeline-summary { grid-template-columns: 1fr; }
-      .timeline-steps { grid-template-columns: 1fr; }
+      .timeline-steps { grid-template-columns: 1fr 1fr; }
+      .schedule-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -451,8 +586,8 @@
   <!-- Hero Section -->
   <section class="hero">
     <span class="hero-tag">
-      <span class="lang-ja">駿河の旅路・特別厳選プラン</span>
-      <span class="lang-en">Curated Travel Plan・Suruga Exploration</span>
+      <span class="lang-ja">駿河の旅路・特別研修旅行パッケージ</span>
+      <span class="lang-en">Curated Tour Package・Suruga Heritage Exploration</span>
     </span>
 
     <h1>
@@ -468,56 +603,138 @@
 
   <main class="container">
 
-    <!-- Schedule Timeline Box (All 4 Spots) -->
-    <div class="timeline-summary">
-      <div class="schedule-card c1">
-        <div class="schedule-card-top">
-          <span class="schedule-num">01</span>
-          <span class="schedule-time">⏰ 11:40〜12:40</span>
+    <!-- REAL PACKAGE TOUR STATS -->
+    <div class="tour-package-summary">
+      <div class="package-stat-card meet">
+        <div class="stat-badge">
+          <span>📍</span>
+          <span class="lang-ja">集合場所・出発</span>
+          <span class="lang-en">Meeting Place & Departure</span>
         </div>
-        <div class="schedule-title">
-          <span class="lang-ja">はとばキッチン</span>
-          <span class="lang-en">Hatoba Kitchen</span>
+        <div class="stat-title">
+          <span class="lang-ja">学校前</span>
+          <span class="lang-en">In Front of School</span>
         </div>
-      </div>
-
-      <div class="schedule-card c2">
-        <div class="schedule-card-top">
-          <span class="schedule-num">02</span>
-          <span class="schedule-time">🚢 13:00〜13:40</span>
-        </div>
-        <div class="schedule-title">
-          <span class="lang-ja">駿河湾クルーズ</span>
-          <span class="lang-en">Suruga Bay Cruise</span>
+        <div class="stat-sub">
+          <span class="lang-ja">配車 08:45 ／ <strong>出発 09:00</strong></span>
+          <span class="lang-en">Bus Ready 08:45 / <strong>Depart 09:00</strong></span>
         </div>
       </div>
 
-      <div class="schedule-card c3">
-        <div class="schedule-card-top">
-          <span class="schedule-num">03</span>
-          <span class="schedule-time">🌲 14:10〜14:45</span>
+      <div class="package-stat-card dismiss">
+        <div class="stat-badge">
+          <span>🏁</span>
+          <span class="lang-ja">解散場所・帰着</span>
+          <span class="lang-en">Dismissal Place & Arrival</span>
         </div>
-        <div class="schedule-title">
-          <span class="lang-ja">三保松原</span>
-          <span class="lang-en">Miho no Matsubara</span>
+        <div class="stat-title">
+          <span class="lang-ja">学校前</span>
+          <span class="lang-en">In Front of School</span>
+        </div>
+        <div class="stat-sub">
+          <span class="lang-ja"><strong>帰着 19:00 予定</strong>（日帰り）</span>
+          <span class="lang-en"><strong>Return 19:00</strong> (Day Trip)</span>
         </div>
       </div>
 
-      <div class="schedule-card c4">
-        <div class="schedule-card-top">
-          <span class="schedule-num">04</span>
-          <span class="schedule-time">⛩️ 15:00〜16:20</span>
+      <div class="package-stat-card">
+        <div class="stat-badge">
+          <span>👥</span>
+          <span class="lang-ja">参加人員・車両</span>
+          <span class="lang-en">Tour Members & Vehicle</span>
         </div>
-        <div class="schedule-title">
-          <span class="lang-ja">久能山東照宮</span>
-          <span class="lang-en">Kunozan Toshogu</span>
+        <div class="stat-title">
+          <span class="lang-ja">合計 22名</span>
+          <span class="lang-en">Total 22 Members</span>
+        </div>
+        <div class="stat-sub">
+          <span class="lang-ja">学生20名・先生1名・添乗員1名<br>中型バス1台</span>
+          <span class="lang-en">Students 20, Teacher 1, Tour Conductor 1<br>Mid-size Bus 1</span>
+        </div>
+      </div>
+
+      <div class="package-stat-card">
+        <div class="stat-badge">
+          <span>🏢</span>
+          <span class="lang-ja">旅行企画・実施</span>
+          <span class="lang-en">Tour Operator</span>
+        </div>
+        <div class="stat-title">
+          <span class="lang-ja">株式会社 第一観光</span>
+          <span class="lang-en">Daiichi Kanko Co., Ltd.</span>
+        </div>
+        <div class="stat-sub">
+          <span class="lang-ja">TEL: 0532-54-1651<br>清水・駿河湾クルーズ日帰り</span>
+          <span class="lang-en">TEL: 0532-54-1651<br>Shimizu & Suruga Bay Day Tour</span>
         </div>
       </div>
     </div>
 
-    <!-- ==============================================
-         SPOT 1: はとばキッチン (साथीको भाग १)
-    =============================================== -->
+    <!-- Full Tour Schedule Box -->
+    <div class="tour-schedule-box">
+      <div class="tour-schedule-header">
+        <div>
+          <span>🕒</span>
+          <span class="lang-ja">当日の全体ツアースケジュール行程</span>
+          <span class="lang-en">Full Day Tour Itinerary Schedule</span>
+        </div>
+        <span class="tag-date">令和8年9月12日（土） / Sep 12, 2026</span>
+      </div>
+      <div class="schedule-grid">
+        <div class="sched-card start">
+          <span class="sched-card-label">
+            <span class="lang-ja">集合・出発</span>
+            <span class="lang-en">Departure</span>
+          </span>
+          <span class="sched-card-time">09:00</span>
+          <span class="sched-card-note">学校前 (配車 8:45)</span>
+        </div>
+        <div class="sched-card orange">
+          <span class="sched-card-label">
+            <span class="lang-ja">はとばキッチン</span>
+            <span class="lang-en">Hatoba Lunch</span>
+          </span>
+          <span class="sched-card-time">11:40 - 12:40</span>
+          <span class="sched-card-note">12:40 店頭前集合</span>
+        </div>
+        <div class="sched-card cyan">
+          <span class="sched-card-label">
+            <span class="lang-ja">駿河湾クルーズ</span>
+            <span class="lang-en">Suruga Cruise</span>
+          </span>
+          <span class="sched-card-time">13:00 - 13:40</span>
+          <span class="sched-card-note">富士山パノラマ</span>
+        </div>
+        <!-- Updated: sched-card blue -->
+        <div class="sched-card blue">
+          <span class="sched-card-label">
+            <span class="lang-ja">三保の松原</span>
+            <span class="lang-en">Miho Pine Grove</span>
+          </span>
+          <span class="sched-card-time">14:10 - 14:45</span>
+          <span class="sched-card-note">散策・見学</span>
+        </div>
+        <!-- Updated: sched-card vermilion -->
+        <div class="sched-card vermilion">
+          <span class="sched-card-label">
+            <span class="lang-ja">久能山東照宮</span>
+            <span class="lang-en">Kunozan Shrine</span>
+          </span>
+          <span class="sched-card-time">15:00 - 16:20</span>
+          <span class="sched-card-note">国宝社殿参拝</span>
+        </div>
+        <div class="sched-card end">
+          <span class="sched-card-label">
+            <span class="lang-ja">帰着・解散</span>
+            <span class="lang-en">Arrival</span>
+          </span>
+          <span class="sched-card-time">19:00</span>
+          <span class="sched-card-note">学校前解散予定</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPOT 1: はとばキッチン -->
     <section class="destination-section" id="hatoba">
       <div class="destination-header dest-hatoba-header">
         <div class="dest-title-wrap">
@@ -536,7 +753,6 @@
       </div>
 
       <div class="cards-stack">
-        <!-- Row 1 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="shop picture.webp" alt="はとばキッチン 店頭">
@@ -553,7 +769,6 @@
           </div>
         </article>
 
-        <!-- Row 2 -->
         <article class="story-card reverse">
           <div class="story-content">
             <h3>
@@ -570,7 +785,6 @@
           </div>
         </article>
 
-        <!-- Row 3 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="self made desert.jpg" alt="オリジナルデザートプレート">
@@ -587,7 +801,6 @@
           </div>
         </article>
 
-        <!-- Row 4 -->
         <article class="story-card reverse">
           <div class="story-content">
             <h3>
@@ -604,7 +817,6 @@
           </div>
         </article>
 
-        <!-- Guide Box -->
         <div class="schedule-guide-card">
           <div class="schedule-guide-title">
             <span>⏱️</span>
@@ -618,28 +830,38 @@
           <div class="timeline-steps">
             <div class="step-item">
               <span class="step-time">11:40</span>
-              <p class="step-action">入店・料理選び<br><small style="color:#a8a29e;">ビュッフェ確保</small></p>
+              <p class="step-action">
+                <span class="lang-ja">入店・料理選び<br><small style="color:#a8a29e;">ビュッフェ確保</small></span>
+                <span class="lang-en">Enter & Pick<br><small style="color:#a8a29e;">Get food dishes</small></span>
+              </p>
             </div>
             <div class="step-item highlight">
               <span class="step-time">12:10★</span>
-              <p class="step-action">デザートタイム<br><small style="color:#ffab91;">パフェ・スイーツ</small></p>
+              <p class="step-action">
+                <span class="lang-ja">デザートタイム<br><small style="color:#ffab91;">パフェ・スイーツ</small></span>
+                <span class="lang-en">Dessert Time<br><small style="color:#ffab91;">Parfait & Sweets</small></span>
+              </p>
             </div>
             <div class="step-item">
               <span class="step-time">12:30</span>
-              <p class="step-action">食事終了・準備<br><small style="color:#a8a29e;">忘れ物チェック</small></p>
+              <p class="step-action">
+                <span class="lang-ja">食事終了・準備<br><small style="color:#a8a29e;">忘れ物チェック</small></span>
+                <span class="lang-en">Finish Meal<br><small style="color:#a8a29e;">Check belongings</small></span>
+              </p>
             </div>
             <div class="step-item highlight" style="border-color: var(--gold);">
               <span class="step-time">12:40</span>
-              <p class="step-action">店頭前集合<br><small style="color:var(--gold-light);">乗船場へ移動</small></p>
+              <p class="step-action">
+                <span class="lang-ja">店頭前集合<br><small style="color:var(--gold-light);">乗船場へ移動</small></span>
+                <span class="lang-en">Gather Front<br><small style="color:var(--gold-light);">Move to Cruise</small></span>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==============================================
-         SPOT 2: 駿河湾クルーズ (साथीको भाग २)
-    =============================================== -->
+    <!-- SPOT 2: 駿河湾クルーズ -->
     <section class="destination-section" id="cruise">
       <div class="destination-header dest-cruise-header">
         <div class="dest-title-wrap">
@@ -658,7 +880,6 @@
       </div>
 
       <div class="cards-stack">
-        <!-- Row 1 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="with flag.jpg" alt="富士山と駿河湾クルーズ船">
@@ -675,7 +896,6 @@
           </div>
         </article>
 
-        <!-- Row 2 -->
         <article class="story-card reverse">
           <div class="story-content">
             <h3>
@@ -692,7 +912,6 @@
           </div>
         </article>
 
-        <!-- Row 3 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="view port.jpg" alt="海の上の県道223号標識">
@@ -716,9 +935,7 @@
       </div>
     </section>
 
-    <!-- ==============================================
-         SPOT 3: 三保松原 (तपाईंको भाग १)
-    =============================================== -->
+    <!-- SPOT 3: 三保松原 -->
     <section class="destination-section" id="mihomatsubara">
       <div class="destination-header dest-miho-header">
         <div class="dest-title-wrap">
@@ -737,7 +954,6 @@
       </div>
 
       <div class="cards-stack">
-        <!-- Card 1 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="三保松原1.jpg" alt="三保松原の黒砂と青い海に浮かぶ富士山">
@@ -754,7 +970,6 @@
           </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="story-card reverse">
           <div class="story-content">
             <h3>
@@ -778,7 +993,6 @@
           </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="2.jpg" alt="海風に吹かれる三保松原の松林">
@@ -797,9 +1011,7 @@
       </div>
     </section>
 
-    <!-- ==============================================
-         SPOT 4: 久能山東照宮 (तपाईंको भाग २)
-    =============================================== -->
+    <!-- SPOT 4: 久能山東照宮 -->
     <section class="destination-section" id="kuno">
       <div class="destination-header dest-kuno-header">
         <div class="dest-title-wrap">
@@ -818,7 +1030,6 @@
       </div>
 
       <div class="cards-stack">
-        <!-- Card 1 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="templejpg.jpg" alt="久能山東照宮の黄金に輝く国宝社殿">
@@ -835,7 +1046,6 @@
           </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="story-card reverse">
           <div class="story-content">
             <h3>
@@ -852,7 +1062,6 @@
           </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="story-card">
           <div class="story-image-wrap">
             <img src="s2.jpg" alt="山頂から見渡す青い太平洋と海岸線">
@@ -869,7 +1078,6 @@
           </div>
         </article>
 
-        <!-- Card 4 -->
         <article class="story-card reverse">
           <div class="story-content" style="grid-column: 1 / -1;">
             <h3>
@@ -882,6 +1090,53 @@
             </p>
           </div>
         </article>
+
+        <!-- Tour Safety Guidelines Box -->
+        <div class="tour-guideline-box">
+          <div class="guide-col">
+            <h4>
+              <span>📌</span>
+              <span class="lang-ja">ツアー参加時の諸注意</span>
+              <span class="lang-en">Tour Guidelines</span>
+            </h4>
+            <ul>
+              <li>
+                <span class="lang-ja">バス走行中は安全のため、常にシートベルトを着用してください。</span>
+                <span class="lang-en">Please keep your seatbelt fastened at all times while the bus is in motion.</span>
+              </li>
+              <li>
+                <span class="lang-ja">集合時間厳守でお願いいたします（各スポット10分前行動）。</span>
+                <span class="lang-en">Please arrive strictly on time (gather 10 minutes prior to departure).</span>
+              </li>
+              <li>
+                <span class="lang-ja">天候や交通状況により出発・到着時間が変更になる場合があります。</span>
+                <span class="lang-en">Times may be subject to minor delays based on traffic and weather conditions.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="guide-col">
+            <h4>
+              <span>🧳</span>
+              <span class="lang-ja">持ち物・その他</span>
+              <span class="lang-en">What to Bring</span>
+            </h4>
+            <ul>
+              <li>
+                <span class="lang-ja">学生証・筆記用具・体調管理グッズ（酔い止め薬など）。</span>
+                <span class="lang-en">Student ID, notebook, and personal motion sickness medicine.</span>
+              </li>
+              <li>
+                <span class="lang-ja">写真撮影時のカメラやスマートフォンの充電・落下にご注意ください。</span>
+                <span class="lang-en">Keep cameras and smartphones charged and secured from dropping overboard.</span>
+              </li>
+              <li>
+                <span class="lang-ja">貴重品は各自で管理をお願いいたします。</span>
+                <span class="lang-en">Please manage your personal valuables responsibly at all times.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
